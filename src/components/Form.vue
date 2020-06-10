@@ -32,7 +32,7 @@
                 {{ isCreate ? 'Создать заметку' : 'Сохранить заметку' }}
             </button>
             <template v-if="isEdit">
-                <button>Отменить</button>
+                <button @click="cancel">Отменить</button>
                 <button>Удалить</button>
             </template>
         </div>
@@ -116,6 +116,24 @@
                     this.$emit('submit', note);
                 }
             },
+            cancel() {
+                this.$modal.show('dialog', {
+                    title: 'Отмена редактирования!',
+                    text: 'Вы действительно хотите отменить редактирования заметки?',
+                    buttons: [
+                        {
+                            title: 'Отмена'
+                        },
+                        {
+                            title: 'Подтвердить',
+                            handler: () => {
+                                this.$modal.hide('dialog');
+                                this.$router.push({name: 'home'});
+                            }
+                        }
+                    ]
+                })
+            }
         },
         mounted() {
             this.editName = this.isCreate;
