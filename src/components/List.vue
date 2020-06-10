@@ -18,7 +18,7 @@
             <template v-if="!disabled">
                 <div class="actions" v-if="edit !== key">
                     <button @click="edited(key)">Редактировать</button>
-                    <button @click="deleted(key)">Удалить</button>
+                    <button @click="deleted(key)" class="error">Удалить</button>
                 </div>
                 <div class="actions" v-else>
                     <button @click="save">Сохранить</button>

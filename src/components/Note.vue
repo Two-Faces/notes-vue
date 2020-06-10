@@ -6,7 +6,7 @@
                 <router-link :to="{name: 'edit', params: {id: id}}" tag="button">
                     Редактировать
                 </router-link>
-                <button class="button" @click="remove">Удалить</button>
+                <button class="error" @click="remove">Удалить</button>
             </div>
         </div>
         <div class="note-body">
@@ -73,7 +73,6 @@
     .note {
         margin: 20px;
         color: #333;
-        padding: 15px;
         box-shadow: 0 2px 7px -7px #333;
         border-radius: 4px;
         min-width: 250px;
@@ -82,31 +81,15 @@
 
         .note-header {
             border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
+            padding: 10px;
             display: flex;
             align-items: center;
+            background: #333;
+            color: #fff;
 
             h5 {
                 margin: 0 10px 0 0;
                 flex: 1;
-            }
-
-            button {
-                border: 0;
-                outline: none;
-                cursor: pointer;
-                background: slategray;
-                color: #eee;
-                margin-left: 1px;
-                transition: .3s;
-
-                &:last-of-type {
-                    background: orangered;
-                }
-
-                &:hover {
-                    opacity: .8;
-                }
             }
         }
 

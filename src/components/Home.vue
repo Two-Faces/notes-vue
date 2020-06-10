@@ -1,6 +1,6 @@
 <template>
     <section class="notes-section">
-        <router-link :to="{name: 'create'}" tag="button" class="create-note">
+        <router-link :to="{name: 'create'}" tag="button" class="success">
             Создать новую заметку
         </router-link>
         <div class="notes-wrapper">
@@ -29,14 +29,6 @@
 <style scoped lang="scss">
     .notes-section {
         text-align: center;
-
-        .create-note {
-            border: 0;
-            outline: none;
-            background: darkgreen;
-            color: #eee;
-            cursor: pointer;
-        }
 
         .notes-wrapper{
             display: flex;

@@ -35,7 +35,7 @@
             </button>
             <template v-if="isEdit">
                 <button @click="cancel">Отменить</button>
-                <button @click="remove">Удалить</button>
+                <button @click="remove" class="error">Удалить</button>
             </template>
         </div>
     </div>
