@@ -2,10 +2,8 @@
     <div class="form-wrapper">
         <div class="form-header">
             <h5>{{ isCreate ? 'Создание заметки' : 'Редактирование заметки' }}</h5>
-            <template v-if="isEdit">
-                <button :disabled="!isUndo" @click="undo">Undo</button>
-                <button :disabled="!isRedo" @click="redo">Redo</button>
-            </template>
+            <button :disabled="!isUndo" @click="undo">Undo</button>
+            <button :disabled="!isRedo" @click="redo">Redo</button>
         </div>
         <div class="form-body">
             <label class="form-label">
