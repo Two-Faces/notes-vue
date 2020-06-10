@@ -15,7 +15,7 @@ export default {
      * @param params
      */
     updateNote: (state, params) => {
-        state.notes.map(item => item.id === params.id ? params.data : item);
+        state.notes.map(item => item.id === params.id ? params : item);
     },
     /**
      * Удаление заметки

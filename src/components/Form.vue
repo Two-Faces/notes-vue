@@ -1,8 +1,7 @@
 <template>
     <div class="form-wrapper">
         <div class="form-header">
-            <h5 v-if="isCreate">Создание заметки</h5>
-            <h5 v-else>Редактирование заметки</h5>
+            <h5>{{ isCreate ? 'Создание заметки' : 'Редактирование заметки' }}</h5>
         </div>
         <div class="form-body">
             <label class="form-label">
@@ -29,7 +28,7 @@
             </div>
         </div>
         <div class="form-footer">
-            <button v-if="isCreate" @click="submit" :disabled="!isValidate">
+            <button @click="submit" :disabled="!isValidate">
                 {{ isCreate ? 'Создать заметку' : 'Сохранить заметку' }}
             </button>
         </div>
@@ -38,6 +37,7 @@
 
 <script>
     import List from "@/components/List";
+    import {mapGetters} from 'vuex';
 
     export default {
         name: "Form",
@@ -55,8 +55,12 @@
             }
         },
         computed: {
+            ...mapGetters(['getNoteData']),
             isCreate(){
                 return this.type === 'create';
+            },
+            isEdit() {
+                return this.type === 'edit';
             },
             isValidate() {
                 return this.name.length > 2;
@@ -97,15 +101,29 @@
              */
             submit() {
                 if(this.isValidate) {
-                    this.$emit('submit', {
+                    const note = {
                         name: this.name,
                         todo: this.todo
-                    });
+                    };
+
+                    if(this.isEdit)
+                        note.id = +this.$route.params.id;
+
+                    this.$emit('submit', note);
                 }
             },
         },
         mounted() {
             this.editName = this.isCreate;
+
+            if(this.isEdit){
+                const data = this.getNoteData(+this.$route.params.id);
+
+                if(data){
+                    this.name = data.name;
+                    this.todo = data.todo;
+                }
+            }
         }
     }
 </script>
@@ -126,6 +144,7 @@
             h5 {
                 margin: 5px 0;
                 flex: 1;
+                text-transform: uppercase;
             }
         }
 

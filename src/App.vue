@@ -23,7 +23,9 @@ export default {
 <style lang="scss">
   h4{
     text-align: center;
+    text-transform: uppercase;
   }
+
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

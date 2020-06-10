@@ -3,7 +3,11 @@
         <li v-for="(item, key) in todo" :key="key"
             :class="{completed: item.isChecked}">
             <label v-if="edit === key">
-                {{ key + 1 }}. <input v-model="name" placeholder="Введите название задачи" class="input">
+                {{ key + 1 }}. <input v-model="name"
+                                      @keyup.enter="save"
+                                      @keyup.esc="cancel"
+                                      placeholder="Введите название задачи"
+                                      class="input">
             </label>
             <label :class="{completed: item.isChecked}" v-else>
                 {{ key + 1 }}. <input type="checkbox"
