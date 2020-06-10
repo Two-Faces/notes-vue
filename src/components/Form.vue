@@ -111,6 +111,7 @@
                     });
                     this.todo_name = '';
                 }
+                this.saveHistory();
             },
             /**
              * Отправка формы
