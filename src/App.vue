@@ -2,19 +2,25 @@
   <div id="app">
     <h4>Notes list</h4>
     <router-view/>
+    <v-dialog />
   </div>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: 'App',
-  data: () => ({
-
-  })
+  methods: {
+    ...mapActions(['getNotes']),
+  },
+  mounted() {
+    this.getNotes();
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
   h4{
     text-align: center;
   }

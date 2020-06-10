@@ -8,8 +8,18 @@ const router = new VueRouter({
     routes: [
         {
             path: '/',
-            name: 'app',
-            component: () => import("./Home"),
+            name: 'home',
+            component: () => import("./components/Home"),
+        },
+        {
+            path: '/note/create',
+            name: 'create',
+            component: () => import("./components/Create"),
+        },
+        {
+            path: '/note/:id/edit',
+            name: 'edit',
+            component: () => import("./components/Edit"),
         }
     ]
 });

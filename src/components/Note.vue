@@ -3,36 +3,66 @@
         <div class="note-header">
             <h5>{{ name }}</h5>
             <div class="actions">
-                <button>Редактировать</button>
-                <button>Удалить</button>
+                <router-link :to="{name: 'edit', params: {id: id}}" tag="button">Редактировать</router-link>
+                <button class="button" @click="remove">Удалить</button>
             </div>
         </div>
         <div class="note-body">
-            <ul v-if="todo.length">
-                <li v-for="(item, key) in todo" :key="key"
-                    :class="{completed: item.isChecked}">
-                    <input type="checkbox" disabled :checked="item.isChecked"/> {{ item.name }}
-                </li>
-            </ul>
-            <i class="not-todo" v-else>
-                Список задач пуст
-            </i>
+            <list :todo="todo" :disabled="true"/>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapActions, mapGetters, mapMutations} from 'vuex';
+    import List from "@/components/List";
+
     export default {
         name: "Note",
+        components: {List},
+        data: () => ({
+            name: 'Название не указано',
+            todo: []
+        }),
         props: {
-            todo: {
-                type: Array,
-                default: () => ([])
-            },
-            name: {
-                type: String,
-                default: 'Название не указано'
+            id: {
+                type: Number,
+                required: true
             }
+        },
+        computed: {
+            ...mapGetters(['getNoteData'])
+        },
+        methods: {
+            ...mapMutations(['removeNote']),
+            ...mapActions(['writeStorage']),
+            /**
+             * Вызов модального окна для подтверждения удаления
+             */
+            remove() {
+                this.$modal.show('dialog', {
+                    title: 'Удаление заметки!',
+                    text: 'Вы действительно хотите удалить заметку?',
+                    buttons: [
+                        {
+                            title: 'Отмена'
+                        },
+                        {
+                            title: 'Удалить',
+                            handler: () => {
+                                this.removeNote(this.id);
+                                this.writeStorage();
+                                this.$modal.hide('dialog');
+                            }
+                        }
+                    ]
+                })
+            }
+        },
+        mounted() {
+            const data = this.getNoteData(this.id);
+            this.name = data.name;
+            this.todo = data.todo;
         }
     }
 </script>
@@ -79,25 +109,7 @@
         }
 
         .note-body {
-            .not-todo {
-                color: #bbb;
-                margin: 5px 0;
-                display: block;
-            }
-
-            ul{
-                list-style: none;
-                padding: 0;
-                margin: 5px 0;
-
-                li {
-                    margin: 3px 0;
-
-                    &.completed {
-                        text-decoration: line-through;
-                    }
-                }
-            }
+            margin: 5px 0;
         }
     }
 </style>

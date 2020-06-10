@@ -1,0 +1,46 @@
+<template>
+    <section class="notes-section">
+        <router-link :to="{name: 'create'}" tag="button" class="create-note">Создать новую заметку</router-link>
+        <div class="notes-wrapper">
+            <note v-for="note in notes"
+                  :id="note.id"
+                  :key="note.id"/>
+        </div>
+    </section>
+</template>
+
+<script>
+    import Note from "@/components/Note";
+    import {mapGetters} from 'vuex';
+
+    export default {
+        name: "Home",
+        components: {Note},
+        computed: {
+            ...mapGetters({
+                notes: 'getNotes'
+            })
+        }
+    }
+</script>
+
+<style scoped lang="scss">
+    .notes-section {
+        text-align: center;
+
+        .create-note {
+            border: 0;
+            outline: none;
+            background: darkgreen;
+            color: #eee;
+            cursor: pointer;
+        }
+
+        .notes-wrapper{
+            display: flex;
+            justify-content: center;
+            margin: 30px auto;
+            text-align: left;
+        }
+    }
+</style>
