@@ -98,13 +98,13 @@
 <style scoped lang="scss">
     .not-todo {
         color: #bbb;
-        margin: 5px 0;
+        padding: 10px;
         display: block;
     }
 
     ul{
         list-style: none;
-        padding: 0;
+        padding: 10px;
         margin: 0;
 
         li {

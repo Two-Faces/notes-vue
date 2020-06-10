@@ -31,6 +31,10 @@
             <button @click="submit" :disabled="!isValidate">
                 {{ isCreate ? 'Создать заметку' : 'Сохранить заметку' }}
             </button>
+            <template v-if="isEdit">
+                <button>Отменить</button>
+                <button>Удалить</button>
+            </template>
         </div>
     </div>
 </template>
@@ -132,13 +136,14 @@
     .form-wrapper {
         margin: 0 30%;
         border: 1px solid #eee;
-        padding: 20px;
         text-align: left;
 
         .form-header {
             display: flex;
             align-content: center;
-            padding-bottom: 10px;
+            background: #333;
+            color: #f9f9f9;
+            padding: 10px;
             border-bottom: 1px solid #eee;
 
             h5 {
@@ -149,11 +154,14 @@
         }
 
         .form-label {
-            margin: 10px 0;
             display: flex;
             align-content: center;
             border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            padding: 10px;
+
+            &:not(:first-child){
+                border-top: 1px solid #eee;
+            }
 
             h5 {
                 margin: 5px;
@@ -170,7 +178,9 @@
         }
 
         .form-footer {
-            text-align: right;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
         }
     }
 </style>
