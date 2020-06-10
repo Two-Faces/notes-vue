@@ -3,7 +3,9 @@
         <div class="note-header">
             <h5>{{ name }}</h5>
             <div class="actions">
-                <router-link :to="{name: 'edit', params: {id: id}}" tag="button">Редактировать</router-link>
+                <router-link :to="{name: 'edit', params: {id: id}}" tag="button">
+                    Редактировать
+                </router-link>
                 <button class="button" @click="remove">Удалить</button>
             </div>
         </div>
@@ -62,7 +64,7 @@
         mounted() {
             const data = this.getNoteData(this.id);
             this.name = data.name;
-            this.todo = data.todo;
+            this.todo = [...data.todo].slice(0, 3);
         }
     }
 </script>

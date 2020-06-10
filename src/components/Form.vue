@@ -8,9 +8,7 @@
                 <h5>Название заметки:</h5>
                 <input placeholder="Введите название заметки"
                        v-model="name"
-                       v-if="editName"
                        class="input">
-                <span v-else>{{ name }}</span>
             </label>
             <div class="todo-list">
                 <list :todo="todo"
@@ -40,7 +38,7 @@
 </template>
 
 <script>
-    import List from "@/components/List";
+    import List from "./List";
     import {mapActions, mapGetters, mapMutations} from 'vuex';
 
     export default {
@@ -93,6 +91,9 @@
             rename(name, key) {
                 this.todo[key].name = name;
             },
+            /**
+             * Добавление задачи
+             */
             addTodo() {
                 if(this.todo_name.length > 2) {
                     this.todo.push({

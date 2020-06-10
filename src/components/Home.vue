@@ -1,6 +1,8 @@
 <template>
     <section class="notes-section">
-        <router-link :to="{name: 'create'}" tag="button" class="create-note">Создать новую заметку</router-link>
+        <router-link :to="{name: 'create'}" tag="button" class="create-note">
+            Создать новую заметку
+        </router-link>
         <div class="notes-wrapper">
             <note v-for="note in notes"
                   :id="note.id"
