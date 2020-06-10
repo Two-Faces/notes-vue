@@ -20,7 +20,10 @@
                       @completed="completed"/>
                 <label class="form-label">
                     <h5>Название задачи:</h5>
-                    <input placeholder="Введите название задачи" v-model="todo_name" class="input">
+                    <input placeholder="Введите название задачи"
+                           v-model="todo_name"
+                           class="input"
+                           @keyup.enter="addTodo">
                     <button @click="addTodo">Добавить</button>
                 </label>
             </div>
