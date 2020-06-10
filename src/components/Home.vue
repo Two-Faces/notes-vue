@@ -39,8 +39,8 @@
         .notes-wrapper{
             display: flex;
             justify-content: center;
-            margin: 30px auto;
             text-align: left;
+            flex-wrap: wrap;
         }
     }
 </style>

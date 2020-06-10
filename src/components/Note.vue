@@ -69,7 +69,7 @@
 
 <style scoped lang="scss">
     .note {
-        margin: 0 20px;
+        margin: 20px;
         color: #333;
         padding: 15px;
         box-shadow: 0 2px 7px -7px #333;
@@ -85,7 +85,7 @@
             align-items: center;
 
             h5 {
-                margin: 0;
+                margin: 0 10px 0 0;
                 flex: 1;
             }
 

@@ -26,8 +26,9 @@
             </div>
         </div>
         <div class="form-footer">
-            <button v-if="isCreate">Создать заметку</button>
-            <button v-else>Сохранить заметку</button>
+            <button v-if="isCreate" @click="submit" :disabled="!isValidate">
+                {{ isCreate ? 'Создать заметку' : 'Сохранить заметку' }}
+            </button>
         </div>
     </div>
 </template>
@@ -53,6 +54,9 @@
         computed: {
             isCreate(){
                 return this.type === 'create';
+            },
+            isValidate() {
+                return this.name.length > 2;
             }
         },
         methods: {
@@ -77,14 +81,25 @@
                 this.todo[key].name = name;
             },
             addTodo() {
-                if(this.todo_name.length > 1) {
+                if(this.todo_name.length > 2) {
                     this.todo.push({
                         name: this.todo_name,
                         isChecked: false
                     });
                     this.todo_name = '';
                 }
-            }
+            },
+            /**
+             * Отправка формы
+             */
+            submit() {
+                if(this.isValidate) {
+                    this.$emit('submit', {
+                        name: this.name,
+                        todo: this.todo
+                    });
+                }
+            },
         },
         mounted() {
             this.editName = this.isCreate;

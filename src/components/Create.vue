@@ -4,6 +4,7 @@
 
 <script>
     import Form from "@/components/Form";
+    import {mapMutations, mapActions} from 'vuex';
 
     export default {
         name: "Create",
@@ -11,8 +12,13 @@
             'form-note': Form
         },
         methods: {
-            submit(params) {
-                console.log(params)
+            ...mapMutations(['pushNote']),
+            ...mapActions(['writeStorage']),
+            submit(note) {
+                this.pushNote(note);
+                this.writeStorage();
+
+                this.$router.push({name: 'home'})
             }
         }
     }
