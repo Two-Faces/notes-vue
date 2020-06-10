@@ -9,17 +9,17 @@ const router = new VueRouter({
         {
             path: '/',
             name: 'home',
-            component: () => import("./components/Home"),
+            component: () => import("../components/Home"),
         },
         {
             path: '/note/create',
             name: 'create',
-            component: () => import("./components/Create"),
+            component: () => import("../components/Create"),
         },
         {
             path: '/note/:id/edit',
             name: 'edit',
-            component: () => import("./components/Edit"),
+            component: () => import("../components/Edit"),
         }
     ]
 });

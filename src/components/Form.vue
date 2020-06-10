@@ -2,6 +2,10 @@
     <div class="form-wrapper">
         <div class="form-header">
             <h5>{{ isCreate ? 'Создание заметки' : 'Редактирование заметки' }}</h5>
+            <template v-if="isEdit">
+                <button :disabled="!isUndo" @click="undo">Undo</button>
+                <button :disabled="!isRedo" @click="redo">Redo</button>
+            </template>
         </div>
         <div class="form-body">
             <label class="form-label">
@@ -40,8 +44,10 @@
 <script>
     import List from "./List";
     import {mapActions, mapGetters, mapMutations} from 'vuex';
+    import historyActionsMixin from "@/assets/historyActionsMixin";
 
     export default {
+        mixins: [historyActionsMixin],
         name: "Form",
         components: {List},
         data: () => ({
@@ -76,12 +82,14 @@
              */
             completed(value, key) {
                 this.todo[key].isChecked = value;
+                this.saveHistory();
             },
             /**
              *  Удаление задачи
              */
             deleted(key) {
-              this.todo.splice(key, 1);
+                this.todo.splice(key, 1);
+                this.saveHistory();
             },
             /**
              * Переименование задачи
@@ -90,6 +98,7 @@
              */
             rename(name, key) {
                 this.todo[key].name = name;
+                this.saveHistory();
             },
             /**
              * Добавление задачи
@@ -175,9 +184,17 @@
 
                 if(data){
                     this.name = data.name;
-                    this.todo = data.todo;
+                    this.todo = JSON.parse(JSON.stringify(data.todo))
                 }
             }
+
+            this.saveHistory();
+        },
+        beforeDestroy() {
+            this.history = [];
+            this.pointer = 0;
+            this.todo = [];
+            this.name = '';
         }
     }
 </script>

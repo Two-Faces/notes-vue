@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import router from './routes';
+import router from './assets/routes';
 import store from './store';
 import App from './App.vue';
 import VModal from 'vue-js-modal';
