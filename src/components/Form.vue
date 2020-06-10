@@ -33,7 +33,7 @@
             </button>
             <template v-if="isEdit">
                 <button @click="cancel">Отменить</button>
-                <button>Удалить</button>
+                <button @click="remove">Удалить</button>
             </template>
         </div>
     </div>
@@ -41,7 +41,7 @@
 
 <script>
     import List from "@/components/List";
-    import {mapGetters} from 'vuex';
+    import {mapActions, mapGetters, mapMutations} from 'vuex';
 
     export default {
         name: "Form",
@@ -71,6 +71,8 @@
             }
         },
         methods: {
+            ...mapMutations(['removeNote']),
+            ...mapActions(['writeStorage']),
             /**
              * Отметка задачи, как выполненная/невыполненная
              */
@@ -116,6 +118,16 @@
                     this.$emit('submit', note);
                 }
             },
+            /**
+             * Перенаправления на домашнюю старницу
+             */
+            redirectHome() {
+                this.$modal.hide('dialog');
+                this.$router.push({name: 'home'});
+            },
+            /**
+             * Отмена редактирования
+             */
             cancel() {
                 this.$modal.show('dialog', {
                     title: 'Отмена редактирования!',
@@ -126,9 +138,28 @@
                         },
                         {
                             title: 'Подтвердить',
+                            handler: () => this.redirectHome()
+                        }
+                    ]
+                })
+            },
+            /**
+             * Удаление заметки
+             */
+            remove() {
+                this.$modal.show('dialog', {
+                    title: 'Удаление заметки!',
+                    text: 'Вы действительно хотите удалить заметку?',
+                    buttons: [
+                        {
+                            title: 'Отмена'
+                        },
+                        {
+                            title: 'Удалить',
                             handler: () => {
-                                this.$modal.hide('dialog');
-                                this.$router.push({name: 'home'});
+                                this.removeNote(this.$route.params.id);
+                                this.writeStorage();
+                                this.redirectHome();
                             }
                         }
                     ]
