@@ -32,7 +32,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     margin-top: 60px;
 
-    button {
+    button:not(.vue-dialog-button) {
       outline: none;
       box-shadow: 0 1px 1px -1px #000;
       cursor: pointer;
